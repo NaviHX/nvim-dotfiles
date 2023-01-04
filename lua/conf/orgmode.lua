@@ -81,8 +81,8 @@ local Config = {
     disable_all = false,
     prefix = '<Leader>o',
     global = {
-      org_agenda = '<prefix>A',
-      org_capture = '<prefix>C',
+      org_agenda = '<prefix>a',
+      org_capture = '<prefix>c',
     },
     agenda = {
       org_agenda_later = 'f',
