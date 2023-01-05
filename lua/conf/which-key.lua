@@ -77,3 +77,7 @@ require('which-key').setup(
     },
 }
 )
+
+-- Call WhichKey explicitly
+vim.keybinds.gmap("n", "<leader>w", "<cmd>WhichKey<CR>", vim.keybinds.opts)
+
