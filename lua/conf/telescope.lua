@@ -20,7 +20,7 @@ local wk = require('which-key')
 wk.register({
     f = {
         name = "Fuzzy Find",
-        f = { "<cmd>Telescope live_grep theme=dropdown<CR>", "Find file"},
+        f = { "<cmd>Telescope fd theme=dropdown<CR>", "Find file"},
         g = { "<cmd>Telescope live_grep theme=dropdown<CR>", "Live grep"},
         b = { "<cmd>Telescope buffers theme=dropdown<CR>", "Find buffer"},
         h = { "<cmd>Telescope help_tags theme=dropdown<CR>", "Search help doc"},
