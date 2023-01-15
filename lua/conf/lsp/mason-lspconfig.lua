@@ -88,12 +88,14 @@ require("mason-lspconfig").setup_handlers {
     -- Next, you can provide a dedicated handler for specific servers.
     -- For example, a handler override for the `rust_analyzer`:
     ["rust_analyzer"] = function ()
-        require("lspconfig")["rust_analyzer"].setup({
-            on_attach = attach,
-            flags = lsp_flags,
-            -- require("lsp_config.rust_analyzer")
-        })
-        -- require("conf.lsp.rust-tools")
+        -- require("lspconfig")["rust_analyzer"].setup({
+        --     on_attach = attach,
+        --     flags = lsp_flags,
+        --     -- require("lsp_config.rust_analyzer")
+        -- })
+
+        -- rust-tools will config lsp and dap
+        require("conf.lsp.rust-tools")
     end,
 
     ["sumneko_lua"] = function ()

@@ -249,9 +249,9 @@ packer.startup(
 
             -- rust tools
             -- 配置由mason-lspconfig自动完成
-            -- use {
-            --     'simrat39/rust-tools.nvim',
-            -- }
+            use {
+                'simrat39/rust-tools.nvim',
+            }
 
             -- 自动补全
             use {

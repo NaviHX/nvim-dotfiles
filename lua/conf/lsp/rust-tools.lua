@@ -1,3 +1,53 @@
+local function attach(_, bufnr)
+    vim.keybinds.bmap(
+        bufnr,
+        "n",
+        "<C-p>",
+        "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>",
+        vim.keybinds.opts
+    )
+    -- 悬浮窗口下翻页，由 Lspsaga 提供
+    vim.keybinds.bmap(
+        bufnr,
+        "n",
+        "<C-n>",
+        "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>",
+        vim.keybinds.opts
+    )
+
+    local wk = require('which-key')
+    wk.register({
+        g = {
+            name = "LSP",
+            d = { "<cmd>Telescope lsp_definitions theme=dropdown<CR>", "Go to defination"},
+            r = { "<cmd>Telescope lsp_references theme=dropdown<CR>", "List references"},
+            o = { "<cmd>Telescope diagnostics theme=dropdown<CR>", "List diagnostics"},
+            h = { "<cmd>Lspsaga hover_doc<CR>", "Show help info"},
+            [ '[' ] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to prev diagnostic"},
+            [ ']' ] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to next diagnostic"},
+        }
+    }, { prefix = "<leader>", buffer = bufnr})
+    wk.register({
+        c = {
+            name = "Code Action",
+            a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "List available code action"},
+            n = { "<cmd>Lspsaga rename<CR>", "Rename identifier"},
+        }
+    }, { prefix = "<leader>", buffer = bufnr})
+    wk.register({
+        r = {
+            name = 'rust-tools',
+            c = { "<Cmd>lua require('rust-tools').open_cargo_toml.open_cargo_toml()<CR>", "Open Cargo.toml"},
+            p = { "<Cmd>lua require('rust-tools').parent_module.parent_module()<CR>", "Open parent module"}
+        }
+}, { prefix = "<leader>" })
+end
+
+local lsp_flags = {
+  -- This is the default in Nvim 0.7+
+  debounce_text_changes = 150,
+}
+
 local opts = {
   tools = { -- rust-tools options
 
@@ -155,33 +205,21 @@ local opts = {
     -- standalone file support
     -- setting it to false may improve startup time
     standalone = false,
+    on_attach = attach,
+    flags = lsp_flags,
+    require("lsp_config.rust_analyzer")
   }, -- rust-analyzer options
 
   -- debugging stuff
-  dap = {
-    adapter = {
-      type = "executable",
-      command = "lldb-vscode",
-      name = "rt_lldb",
-    },
-  },
+  -- dap = {
+  --   adapter = {
+  --     type = "executable",
+  --     command = "lldb-vscode",
+  --     name = "rt_lldb",
+  --   },
+  -- },
+  dap = require("dap_config.rust")
 }
 local rt = require("rust-tools")
 rt.setup(opts)
 
--- 启用inlay hints
-rt.inlay_hints.enable()
-
-local wk = require('which-key')
-wk.register({
-    r = {
-        name = 'rust-tools',
-        c = { "<Cmd>lua require('rust-tools').open_cargo_toml.open_cargo_toml()<CR>", "Open Cargo.toml"},
-        p = { "<Cmd>lua require('rust-tools').parent_module.parent_module()<CR>", "Open parent module"}
-    }
-}, { prefix = "<leader>" })
-
--- -- 打开Cargo.toml
--- vim.keybinds.gmap("n", "<Leader>co", "<Cmd>lua require('rust-tools').open_cargo_toml.open_cargo_toml()<CR>", vim.keybinds.opts)
--- -- 打开父模块
--- vim.keybinds.gmap("n", "<Leader>pm", "<Cmd>lua require('rust-tools').parent_module.parent_module()<CR>", vim.keybinds.opts)
