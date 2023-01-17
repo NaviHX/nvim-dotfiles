@@ -54,12 +54,12 @@ packer.startup(
             }
 
             -- 主题: tokyonight
-            use {
-                "folke/tokyonight.nvim",
-                config = function ()
-                    require("conf.tokyonight")
-                end
-            }
+            -- use {
+            --     "folke/tokyonight.nvim",
+            --     config = function ()
+            --         require("conf.tokyonight")
+            --     end
+            -- }
 
             -- 主题: catppuccin
             use {
