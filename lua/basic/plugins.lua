@@ -61,6 +61,15 @@ packer.startup(
                 end
             }
 
+            -- 主题: catppuccin
+            use {
+                'catppuccin/nvim',
+                as = "catppuccin",
+                config = function ()
+                    require("conf.catppuccin")
+                end
+            }
+
             -- lualine 底部的状态栏
             use {
                 'nvim-lualine/lualine.nvim',
