@@ -36,6 +36,14 @@ packer.startup(
                 end
             }
 
+            -- gitsigns
+            use {
+                'lewis6991/gitsigns.nvim',
+                config = function ()
+                    require('conf.gitsigns')
+                end
+            }
+
             -- nvim-surround
             use {
                 "kylechui/nvim-surround",
